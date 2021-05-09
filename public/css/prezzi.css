@@ -1,0 +1,81 @@
+body{
+    background-color: #12232E;
+}
+
+table{
+    position: relative;
+    margin-top: 200px;
+    margin-left: 100px;
+    width: 40%;
+    border: 2px solid #007CC7;
+    border-collapse: collapse;
+    top: 80px;
+}
+
+a{
+    font-family: "Open Sans", sans-serif;
+    font-size: medium;
+    color: red;
+    text-decoration: none;
+}
+a:hover{
+    color: whitesmoke;
+}
+
+th, td{
+    font-family: Merriweather, serif;
+    font-size: large;
+    color: whitesmoke;
+    border: 2px solid #007CC7;
+}
+
+td{
+    font-family: "Open Sans", sans-serif;
+    font-size: medium;
+    text-align: center;
+}
+
+.price{
+    text-align: right;
+    padding-right: 10px;
+    width: 80px;
+}
+
+th{
+    height: 50px;
+}
+
+div.container{
+    background-color: #203647;
+    position: relative;
+    width: 20%;
+    padding: 20px;
+    margin-right: 50px; 
+    float: left;
+    margin-left: 150px;
+}
+
+img{
+    max-height: 250px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+div.button{
+    top: 500px;
+    left: 270px;
+    height: 20px;
+    text-align: center;
+    background-color: #5085A5;
+    position: absolute;
+    display: block;
+    color: whitesmoke;
+    cursor: pointer;
+    font-family: "Open Sans", sans-serif;
+    font-size: medium;
+}
+
+div.button:hover{
+    opacity: 0.7;
+}

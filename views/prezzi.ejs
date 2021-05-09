@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consigli di lettura - prezzi</title>
+    <link rel="stylesheet" type="text/css" href="/css/prezzi.css">
+    <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Merriweather|Open Sans">
+    <base target="_blank">
+</head>
+<body>
+  <div class="container">
+    <img src= <%= img %> alt= <%= title %>>
+  </div>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>Sito</th>
+        <th class="price">Prezzo</th>
+      </tr>
+      <tr>
+        <td> <a href= <%= link1 %>> <%= sito1 %> </a></td>
+        <td class="price"> <%= prezzo1 %>€</td>
+      </tr>
+      <tr>
+          <td> <a href= <%= link2 %>> <%= sito2 %> </a></td>
+          <td class="price"> <%= prezzo2 %>€</td>
+      </tr>
+      <tr>
+          <td> <a href= <%= link3 %>> <%= sito3 %> </a></td>
+          <td class="price"> <%= prezzo3 %>€</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="button">Home</div>
+  <script src="/js/prezzi.js"></script>
+</body>
+</html>

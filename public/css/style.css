@@ -28,7 +28,6 @@ div.column {
 }
 img.column{
     width: auto;
-    height: 200px;
     max-height: 209px;
     display: block;
     margin-right: auto;
@@ -73,23 +72,16 @@ div.button{
     top: 50px;
     text-align: center;
     background-color: #5085A5;
+    color: white;
     visibility: hidden;
     border-radius: 50%;
     vertical-align: top;
-    overflow: hidden;
-
-}
-div.button a{
-    display: table-cell;
-    vertical-align: middle;
-    color: white;
-    text-decoration: none;
     font-size: 15px;
     font-family: "Open Sans", sans-serif;
-    
+    cursor: pointer;
 }
 
-.modal {
+.modal, #divError {
     display: block; 
     position: fixed;
     z-index: 1;
@@ -99,6 +91,19 @@ div.button a{
     width: 100%;
     height: 100%;
     background-color: #12232E; 
+}
+
+#divError {
+    height: 70px;
+    top: 200px;
+    background-color: #ff0033;
+    font-family: Merriweather, serif;
+    color: white;
+    font-size: 30px;
+    padding-top: 0px;
+    vertical-align: middle;
+    line-height: 70px;
+    text-align: center;
 }
 
 .modal-content {
@@ -115,7 +120,7 @@ div.button a{
     to {transform:scale(1)}
 }
 
-.exit {
+.exit, #spanError {
     position: absolute;
     top: 15px;
     right: 35px;
@@ -125,10 +130,54 @@ div.button a{
     transition: 0.3s;
 }
   
-.exit:hover {
+.exit:hover, #spanError:hover{
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
+}
+
+#spanError{
+    top: 0px;
+}
+
+#textError{
+    font-family: Merriweather, serif;
+    color: white;
+    font-size: 30px;
+    padding: 10px;
+}
+
+.loading{
+    display: none;
+    position: fixed;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    background-color: #12232E;
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #007CC7;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -58px;
+    margin-left: -58px;
+    animation: spin 1.25s linear infinite;
+    z-index: inherit;
+  }
+
+@keyframes spin {
+    0% { transform: rotate(0deg) }
+    100% { transform: rotate(360deg) }
 }
 
 h3{
