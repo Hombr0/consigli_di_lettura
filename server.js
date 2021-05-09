@@ -37,6 +37,9 @@ app.use(express.static(__dirname + "/public"))
 app.use(express.urlencoded({extended : false}))
 app.use(express.json())
 
+app.get("/", (req, res) => {
+    res.sendFile("index.html")
+})
 
 app.post("/titolo", (req, res) => {
     const title = req.body.data
@@ -50,7 +53,6 @@ app.post("/titolo", (req, res) => {
     ])
     .then( data => {
         const info = data.sort( (a, b) => b[2] - a[2])
-        console.log(info)
         const jsonInfo = JSON.stringify({
             "data": info
         })
@@ -71,7 +73,6 @@ app.get("/prezzi", (req, res) => {
     read(__dirname + "/prices.json")
     .then( response => {
         const prezzi = JSON.parse(response).data
-        console.log(prezzi)
         res.render("prezzi.ejs", 
         {
             link1: prezzi[0][1],
@@ -86,7 +87,6 @@ app.get("/prezzi", (req, res) => {
             title: prezzi[0][0],
             img: "/immagini/" + prezzi[0][0].replaceAll(' ', '').toLowerCase() + ".jpg"
         })
-        console.log("Ciao")
     })
     .catch(console.log)
 })
