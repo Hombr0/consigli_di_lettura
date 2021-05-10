@@ -37,10 +37,6 @@ app.use(express.static(__dirname + "/public"))
 app.use(express.urlencoded({extended : false}))
 app.use(express.json())
 
-app.get("/", (req, res) => {
-    res.sendFile("index.html")
-})
-
 app.post("/titolo", (req, res) => {
     const title = req.body.data
     const urlAmazon = "https://www.amazon.it/s?k=" + title.replaceAll(' ', '+')
