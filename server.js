@@ -7,7 +7,7 @@ const ejs = require("ejs")
 const write = util.promisify(fs.writeFile)
 const read = util.promisify(fs.readFile)
 const app = express()
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 80
 
 const Amazon = () => {
     return parseFloat(document.querySelector("span.a-price-whole").innerHTML.replaceAll(",", "."))
