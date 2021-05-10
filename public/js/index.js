@@ -6,7 +6,7 @@ void( () =>
         const loading = document.querySelector("div.loading")
         loading.style.display = "block"
         
-        const url = window.location.href + window.location.port
+        const url = window.location.href + ":8080"
          data = { "data" : e.currentTarget.nextElementSibling.innerHTML}
         console.log(e.currentTarget.nextElementSibling.innerHTML)
         fetch(url + "titolo", {
