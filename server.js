@@ -52,7 +52,7 @@ app.post("/titolo", (req, res) => {
         const jsonInfo = JSON.stringify({
             "data": info
         })
-        write("prices.json", jsonInfo)
+        write(__dirname + "/prices.json", jsonInfo)
         .then(response => {
             res.status(200).end()
         })
