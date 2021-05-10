@@ -6,8 +6,8 @@ void( () =>
         const loading = document.querySelector("div.loading")
         loading.style.display = "block"
         
-        const url = "http://localhost:8080/"
-        let data = { "data" : e.currentTarget.nextElementSibling.innerHTML}
+        const url = "http://localhost:" + window.location.port + "/"
+         data = { "data" : e.currentTarget.nextElementSibling.innerHTML}
         console.log(e.currentTarget.nextElementSibling.innerHTML)
         fetch(url + "titolo", {
             method : "POST",
