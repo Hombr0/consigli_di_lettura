@@ -10,19 +10,19 @@ const app = express()
 const port = process.env.PORT || 80
 
 const Amazon = () => {
-    return parseFloat(document.querySelector("span.a-price-whole").innerHTML.replaceAll(",", "."))
+    return parseFloat(document.querySelector("span.a-price-whole").innerHTML.replace(/,/g, "."))
  }
 
 const Ibs = () => {
-    return parseFloat(document.querySelector("span.new-price").innerHTML.slice(0, 4).replaceAll(",", "."))
+    return parseFloat(document.querySelector("span.new-price").innerHTML.slice(0, 4).replace(/,/g, "."))
 }
 
 const Libraccio = () => {
-    return parseFloat(document.querySelector("span.sellpr").innerHTML.slice(2, 6).replaceAll(",", "."))
+    return parseFloat(document.querySelector("span.sellpr").innerHTML.slice(2, 6).replace(/,/g, "."))
 }
 
 const scraper = async (url, selector, title, site) => {
-    const browser = await puppeteer.launch({ headless: true })
+    const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] })
     const page =  await browser.newPage()
     await page.goto(url)
     const prize = await page.evaluate(selector)
@@ -79,7 +79,7 @@ app.get("/prezzi", (req, res) => {
             prezzo2: prezzi[1][2].toString().replace(/./g, ","),
             link3: prezzi[2][1],
             sito3: prezzi[2][3],
-            prezzo3: prezzi[2][2].toString().replaceAll(/./g, ","),
+            prezzo3: prezzi[2][2].toString().replace(/./g, ","),
             title: prezzi[0][0],
             img: "/immagini/" + prezzi[0][0].replace(/\s/g, '').toLowerCase() + ".jpg"
         })
