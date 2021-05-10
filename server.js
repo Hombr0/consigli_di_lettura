@@ -39,9 +39,9 @@ app.use(express.json())
 
 app.post("/titolo", (req, res) => {
     const title = req.body.data
-    const urlAmazon = "https://www.amazon.it/s?k=" + title.replaceAll(' ', '+')
-    const urlIbs = "https://www.ibs.it/algolia-search?&query=" + title.replaceAll(' ', '%20')
-    const urlLibraccio = "https://www.libraccio.it/src/?FT=" + title.replaceAll(' ', '+')
+    const urlAmazon = "https://www.amazon.it/s?k=" + title.replace(/\s/g, '+')
+    const urlIbs = "https://www.ibs.it/algolia-search?&query=" + title.replace(/\s/g, '%20')
+    const urlLibraccio = "https://www.libraccio.it/src/?FT=" + title.replace(/\s/g, '+')
     Promise.all([
     scraper(urlIbs, Ibs, title, "Ibs"), 
     scraper(urlLibraccio, Libraccio, title, "Libraccio"),
@@ -73,15 +73,15 @@ app.get("/prezzi", (req, res) => {
         {
             link1: prezzi[0][1],
             sito1: prezzi[0][3],
-            prezzo1: prezzi[0][2].toString().replaceAll(".", ","),
+            prezzo1: prezzi[0][2].toString().replace(/./g, ","),
             link2: prezzi[1][1],
             sito2: prezzi[1][3],
-            prezzo2: prezzi[1][2].toString().replaceAll(".", ","),
+            prezzo2: prezzi[1][2].toString().replace(/./g, ","),
             link3: prezzi[2][1],
             sito3: prezzi[2][3],
-            prezzo3: prezzi[2][2].toString().replaceAll(".", ","),
+            prezzo3: prezzi[2][2].toString().replaceAll(/./g, ","),
             title: prezzi[0][0],
-            img: "/immagini/" + prezzi[0][0].replaceAll(' ', '').toLowerCase() + ".jpg"
+            img: "/immagini/" + prezzi[0][0].replace(/\s/g, '').toLowerCase() + ".jpg"
         })
     })
     .catch(console.log)
