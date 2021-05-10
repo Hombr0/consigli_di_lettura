@@ -10,15 +10,15 @@ const app = express()
 const port = process.env.PORT || 80
 
 const Amazon = () => {
-    return parseFloat(document.querySelector("span.a-price-whole").innerHTML.replace(/,/g, "."))
+    return parseFloat(document.querySelector("span.a-price-whole").innerHTML.replace(',', '.'))
  }
 
 const Ibs = () => {
-    return parseFloat(document.querySelector("span.new-price").innerHTML.slice(0, 4).replace(/,/g, "."))
+    return parseFloat(document.querySelector("span.new-price").innerHTML.slice(0, 4).replace(',', '.'))
 }
 
 const Libraccio = () => {
-    return parseFloat(document.querySelector("span.sellpr").innerHTML.slice(2, 6).replace(/,/g, "."))
+    return parseFloat(document.querySelector("span.sellpr").innerHTML.slice(2, 6).replace(',', '.'))
 }
 
 const scraper = async (url, selector, title, site) => {
@@ -73,13 +73,13 @@ app.get("/prezzi", (req, res) => {
         {
             link1: prezzi[0][1],
             sito1: prezzi[0][3],
-            prezzo1: prezzi[0][2].toString().replace(/./g, ","),
+            prezzo1: prezzi[0][2].toString().replace('.', ','),
             link2: prezzi[1][1],
             sito2: prezzi[1][3],
-            prezzo2: prezzi[1][2].toString().replace(/./g, ","),
+            prezzo2: prezzi[1][2].toString().replace('.', ','),
             link3: prezzi[2][1],
             sito3: prezzi[2][3],
-            prezzo3: prezzi[2][2].toString().replace(/./g, ","),
+            prezzo3: prezzi[2][2].toString().replace('.', ','),
             title: prezzi[0][0],
             img: "/immagini/" + prezzi[0][0].replace(/\s/g, '').toLowerCase() + ".jpg"
         })
