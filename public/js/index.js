@@ -6,7 +6,7 @@ void( () =>
         const loading = document.querySelector("div.loading")
         loading.style.display = "block"
         
-        const url = "http://consigli-di-lettura.herokuapp.com:80/"
+        const url = "https://consigli-di-lettura.herokuapp.com/"
          data = { "data" : e.currentTarget.nextElementSibling.innerHTML}
         console.log(e.currentTarget.nextElementSibling.innerHTML)
         fetch(url + "titolo", {
