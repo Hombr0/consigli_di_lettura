@@ -10,20 +10,20 @@ const deleteFile = util.promisify(fs.unlink)
 const app = express()
 const port = process.env.PORT || 80
 
-const Amazon = async (page) => {
-    const price = await page.$$("span.a-price-whole")
+const Amazon = () => {
+    const price = document.querySelector("span.a-price-whole")
     const result = parseFloat(price.innerHTML.replace(',', '.'))
     return result
  }
 
-const Ibs = async (page) => {
-    const price = await page.$$("span.new-price")
+const Ibs = () => {
+    const price = document.querySelector("span.new-price")
     const result = parseFloat(price.innerHTML.slice(0, 4).replace(',', '.'))
     return result
 }
 
-const Libraccio = async (page) => {
-    const price = await page.$$("span.sellpr")
+const Libraccio = () => {
+    const price = document.querySelector("span.sellpr")
     const result = parseFloat(price.innerHTML.slice(2, 6).replace(',', '.'))
     return result
 }
@@ -42,7 +42,7 @@ const scraper = async (url, selector, title, site) => {
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'
     })
     await page.goto(url)
-    const prize = await selector()
+    const prize = await page.evaluate(selector)
     await browser.close(page)
     return [title, url, prize, site]
 }
