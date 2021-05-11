@@ -33,8 +33,8 @@ const scraper = async (url, selector, title, site) => {
     const page =  await browser.newPage()
     await page.goto(url)
     const prize = await page.evaluate(selector)
-    browser.close()
-    return [title, url, prize, site]
+    await browser.close()
+    return [title, url, await prize, site]
 }
 
 app.set("views", "./views")
