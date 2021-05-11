@@ -33,8 +33,8 @@ const scraper = async (url, selector, title, site) => {
     const page =  await browser.newPage()
     await page.goto(url)
     const prize = await page.evaluate(selector)
-    await browser.close()
-    return [title, url, await prize, site]
+    browser.close()
+    return [title, url, prize, site]
 }
 
 app.set("views", "./views")
@@ -63,7 +63,9 @@ app.post("/titolo", (req, res) => {
         .then(response => {
             res.status(200).end()
         })
-        .catch(console.log)
+        .catch(err => {
+            throw err
+        })
         
     })
     .catch(err => {
