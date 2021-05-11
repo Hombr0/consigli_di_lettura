@@ -11,15 +11,18 @@ const app = express()
 const port = process.env.PORT || 80
 
 const Amazon = () => {
-    return parseFloat(document.querySelector("span.a-price-whole").innerHTML.replace(',', '.'))
+    const result = parseFloat(await page.$$("span.a-price-whole").innerHTML.replace(',', '.'))
+    return result
  }
 
 const Ibs = () => {
-    return parseFloat(document.querySelector("span.new-price").innerHTML.slice(0, 4).replace(',', '.'))
+    const result = parseFloat(await page.$$("span.new-price").innerHTML.slice(0, 4).replace(',', '.'))
+    return result
 }
 
 const Libraccio = () => {
-    return parseFloat(document.querySelector("span.sellpr").innerHTML.slice(2, 6).replace(',', '.'))
+    const result = parseFloat(await page.$$("span.sellpr").innerHTML.slice(2, 6).replace(',', '.'))
+    return result
 }
 
 const scraper = async (url, selector, title, site) => {
