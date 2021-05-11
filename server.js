@@ -10,19 +10,19 @@ const deleteFile = util.promisify(fs.unlink)
 const app = express()
 const port = process.env.PORT || 80
 
-const Amazon = () => {
+const Amazon = async () => {
     const price = await page.$$("span.a-price-whole")
     const result = parseFloat(price.innerHTML.replace(',', '.'))
     return result
  }
 
-const Ibs = () => {
+const Ibs = async () => {
     const price = await page.$$("span.new-price")
     const result = parseFloat(price.innerHTML.slice(0, 4).replace(',', '.'))
     return result
 }
 
-const Libraccio = () => {
+const Libraccio = async () => {
     const price = await page.$$("span.sellpr")
     const result = parseFloat(price.innerHTML.slice(2, 6).replace(',', '.'))
     return result
