@@ -22,7 +22,14 @@ const Libraccio = () => {
 }
 
 const scraper = async (url, selector, title, site) => {
-    const browser = await puppeteer.launch({args: ['--no-sandbox']})
+    const browser = await puppeteer.launch({args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
+        '--proxy-server="direct://"',
+        '--proxy-bypass-list=*'
+   ]})
     const page =  await browser.newPage()
     await page.goto(url)
     const prize = await page.evaluate(selector)
