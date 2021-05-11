@@ -6,6 +6,7 @@ const ejs = require("ejs")
 
 const write = util.promisify(fs.writeFile)
 const read = util.promisify(fs.readFile)
+const deleteFile = util.promisify(fs.unlink)
 const app = express()
 const port = process.env.PORT || 80
 
@@ -36,7 +37,7 @@ const scraper = async (url, selector, title, site) => {
     })
     await page.goto(url)
     const prize = await page.evaluate(selector)
-    browser.close()
+    await browser.close()
     return [title, url, prize, site]
 }
 
@@ -94,6 +95,10 @@ app.get("/prezzi", (req, res) => {
             prezzo3: prezzi[2][2].toString().replace('.', ','),
             title: prezzi[0][0],
             img: "/immagini/" + prezzi[0][0].replace(/\s/g, '').toLowerCase() + ".jpg"
+        })
+        deleteFile(__dirname + "/prices.json")
+        .catch(err => {
+            throw err
         })
     })
     .catch(console.log)
