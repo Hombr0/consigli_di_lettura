@@ -32,10 +32,6 @@ const scraper = async (url, selector, title, site) => {
     const browser = await puppeteer.launch({args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
-        '--disable-gpu',
-        '--disable-dev-shm-usage',
-        '--proxy-server="direct://"',
-        '--proxy-bypass-list=*'
    ]})
     const page =  await browser.newPage()
     await page.setExtraHTTPHeaders({
@@ -59,6 +55,7 @@ app.post("/titolo", (req, res) => {
     const urlAmazon = "https://www.amazon.it/s?k=" + title.replace(/\s/g, '+')
     const urlIbs = "https://www.ibs.it/algolia-search?&query=" + title.replace(/\s/g, '%20')
     const urlLibraccio = "https://www.libraccio.it/src/?FT=" + title.replace(/\s/g, '+')
+    
     Promise.all([
     scraper(urlIbs, Ibs, title, "Ibs"), 
     scraper(urlLibraccio, Libraccio, title, "Libraccio"),
@@ -101,10 +98,6 @@ app.get("/prezzi", (req, res) => {
             prezzo3: prezzi[2][2].toString().replace('.', ','),
             title: prezzi[0][0],
             img: "/immagini/" + prezzi[0][0].replace(/\s/g, '').toLowerCase() + ".jpg"
-        })
-        deleteFile(__dirname + "/prices.json")
-        .catch(err => {
-            throw err
         })
     })
     .catch(console.log)
