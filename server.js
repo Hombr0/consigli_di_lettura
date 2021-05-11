@@ -11,17 +11,20 @@ const app = express()
 const port = process.env.PORT || 80
 
 const Amazon = () => {
-    const result = parseFloat(await page.$$("span.a-price-whole").innerHTML.replace(',', '.'))
+    const price = await page.$$("span.a-price-whole")
+    const result = parseFloat(price.innerHTML.replace(',', '.'))
     return result
  }
 
 const Ibs = () => {
-    const result = parseFloat(await page.$$("span.new-price").innerHTML.slice(0, 4).replace(',', '.'))
+    const price = await page.$$("span.new-price")
+    const result = parseFloat(price.innerHTML.slice(0, 4).replace(',', '.'))
     return result
 }
 
 const Libraccio = () => {
-    const result = parseFloat(await page.$$("span.sellpr").innerHTML.slice(2, 6).replace(',', '.'))
+    const price = await page.$$("span.sellpr")
+    const result = parseFloat(price.innerHTML.slice(2, 6).replace(',', '.'))
     return result
 }
 
