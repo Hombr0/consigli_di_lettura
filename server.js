@@ -40,6 +40,7 @@ const Amazon = (title, url, html) => {
 
 const Feltrinelli = (title, url, html) => {
     const $ = cheerio.load(html)
+    console.log(html)
     const price = parseFloat( $("span.gtmActualPrice:eq(24)", html).text().replace(',', '.') )
     return [title, url, "Feltrinelli", price]
 }
