@@ -29,10 +29,11 @@ const port = process.env.PORT || 80
 //     const result = parseFloat(price.innerHTML.slice(2, 6).replace(',', '.'))
 //     return result
 // }
+const headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64;     x64; rv:66.0) Gecko/20100101 Firefox/66.0", "Accept-Encoding":"gzip, deflate",     "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "DNT":"1","Connection":"close", "Upgrade-Insecure-Requests":"1"}
 
 const Amazon = (title, url, html) => {
     const $ = cheerio.load(html)
-    console.log(html)
+    console.log(html.text())
     const price = parseFloat( $("span.a-price-whole:first", html).text().replace(',', '.') )
     return [title, url, "Amazon", price]
 }
@@ -82,7 +83,7 @@ app.post("/titolo", (req, res) => {
     // scraper(urlAmazon, Amazon, title, "Amazon")
     // ])
     Promise.all([
-        rp(urlAmazon),
+        rp(urlAmazon, headers = headers),
         rp(urlFeltrinelli),
         rp(urlLibraccio)
     ])
