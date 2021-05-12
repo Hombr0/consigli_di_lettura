@@ -83,7 +83,7 @@ app.post("/titolo", (req, res) => {
     // scraper(urlAmazon, Amazon, title, "Amazon")
     // ])
     Promise.all([
-        rp(urlAmazon, headers = headers),
+        rp(urlAmazon, headers),
         rp(urlFeltrinelli),
         rp(urlLibraccio)
     ])
