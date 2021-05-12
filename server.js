@@ -33,6 +33,7 @@ const headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64;     x64; rv:
 
 const Amazon = (title, url, html) => {
     const $ = cheerio.load(html)
+    console.log(html)
     const price = parseFloat( $("span.a-price-whole:first", html).text().replace(',', '.') )
     return [title, url, "Amazon", price]
 }
@@ -83,7 +84,7 @@ app.post("/titolo", (req, res) => {
     // ])
     Promise.all([
         rp(urlAmazon, {
-            'authority': 'scrapeme.live',
+    'authority': 'scrapeme.live',
     'dnt': '1',
     'upgrade-insecure-requests': '1',
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36',
