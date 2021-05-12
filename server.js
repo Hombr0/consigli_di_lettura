@@ -32,7 +32,7 @@ const port = process.env.PORT || 80
 
 const Amazon = (title, url, html) => {
     const $ = cheerio.load(html)
-    console.log($)
+    console.log(html)
     const price = parseFloat( $("span.a-price-whole:first", html).text().replace(',', '.') )
     return [title, url, "Amazon", price]
 }
