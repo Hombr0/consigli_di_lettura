@@ -30,16 +30,6 @@ const port = process.env.PORT || 80
 //     const result = parseFloat(price.innerHTML.slice(2, 6).replace(',', '.'))
 //     return result
 // }
-const getRequest = async (url) => {
-    const result = await axios.get(url, {
-        headers: {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36'
-    }})
-    .catch( err => {
-        console.log(err)
-    })
-    return result
-}
 
 const Amazon = (title, url, html) => {
     const $ = cheerio.load(html)
@@ -93,30 +83,39 @@ app.post("/titolo", (req, res) => {
     // scraper(urlLibraccio, Libraccio, title, "Libraccio"),
     // scraper(urlAmazon, Amazon, title, "Amazon")
     // ])
-    const data = [
-    getRequest(urlAmazon),
-    getRequest(urlFeltrinelli),
-    getRequest(urlLibraccio)
+
+    axios.all[
+        axios.get(urlAmazon,  {
+            headers: {
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36'
+        }}),
+        axios.get(urlFeltrinelli),
+        axios.get(urlLibraccio)
     ]
-    const dataPrices = [
-        Amazon(title, urlAmazon, data[0]),
-        Feltrinelli(title, urlFeltrinelli, data[1]),
-        Libraccio(title, urlLibraccio, data[2])
-    ]
-    console.log(dataPrices)
-    const prices = dataPrices.sort( (a, b) => b[3] - a[3])
-    
-    const jsonPrices = JSON.stringify({
-        "data": prices
+    .then( data => {
+        const dataPrices = [
+            Amazon(title, urlAmazon, data[0]),
+            Feltrinelli(title, urlFeltrinelli, data[1]),
+            Libraccio(title, urlLibraccio, data[2])
+        ]
+        console.log(dataPrices)
+        const prices = dataPrices.sort( (a, b) => b[3] - a[3])
+        
+        const jsonPrices = JSON.stringify({
+            "data": prices
+        })
+        write(__dirname + "/prices.json", jsonPrices)
+        .then(response => {
+            res.status(200).end()
+        })
+        .catch(err => {
+            throw err
+        })
     })
-    write(__dirname + "/prices.json", jsonPrices)
-    .then(response => {
-        res.status(200).end()
-    })
-    .catch(err => {
+    .catch( err => {
         throw err
     })
-
+})
 app.get("/prezzi", (req, res) => {
     read(__dirname + "/prices.json")
     .then( response => {
