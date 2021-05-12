@@ -84,7 +84,7 @@ app.post("/titolo", (req, res) => {
     // scraper(urlAmazon, Amazon, title, "Amazon")
     // ])
 
-    axios.all[
+    Promise.all[
         axios.get(urlAmazon),
         axios.get(urlFeltrinelli),
         axios.get(urlLibraccio)
