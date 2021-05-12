@@ -33,7 +33,6 @@ const headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64;     x64; rv:
 
 const Amazon = (title, url, html) => {
     const $ = cheerio.load(html)
-    console.log(html.text())
     const price = parseFloat( $("span.a-price-whole:first", html).text().replace(',', '.') )
     return [title, url, "Amazon", price]
 }
