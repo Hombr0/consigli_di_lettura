@@ -1,40 +1,15 @@
 const express = require("express")
-// const puppeteer = require("puppeteer")
 const axios = require('axios')
 const cheerio = require('cheerio')
 const util = require("util")
 const fs = require("fs")
 const ejs = require("ejs")
-const { SSL_OP_EPHEMERAL_RSA } = require("constants")
 
 const write = util.promisify(fs.writeFile)
 const read = util.promisify(fs.readFile)
 
 const app = express()
-const port = process.env.PORT || 80
-
-// const Amazon = () => {
-//     const price = document.querySelector("span.a-price-whole")
-//     const result = parseFloat(price.innerHTML.replace(',', '.'))
-//     return result
-//  }
-
-// const Ibs = () => {
-//     const price = document.querySelector("span.new-price")
-//     const result = parseFloat(price.innerHTML.slice(0, 4).replace(',', '.'))
-//     return result
-// }
-
-// const Libraccio = () => {
-//     const price = document.querySelector("span.sellpr")
-//     const result = parseFloat(price.innerHTML.slice(2, 6).replace(',', '.'))
-//     return result
-// }
-const sleep = ms => {
-    return new Promise(
-      resolve => setTimeout(resolve, ms)
-    )
-  }
+const port = process.env.PORT || 8080
 
 const headers = {
     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -72,20 +47,6 @@ const Libraccio = (title, url, html) => {
     const price = parseFloat( $("span.sellpr:first", html).text().slice(2, 6).replace(',', '.') )
     return [title, url, "Libraccio", price]
 }
-// const scraper = async (url, selector, title, site) => {
-//     const browser = await puppeteer.launch({args: [
-//         '--no-sandbox',
-//         '--disable-setuid-sandbox',
-//    ]})
-//     const page =  await browser.newPage()
-//     await page.setExtraHTTPHeaders({
-//         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'
-//     })
-//     await page.goto(url)
-//     const prize = await page.evaluate(selector)
-//     await browser.close(page)
-//     return [title, url, prize, site]
-// }
 
 app.set("views", "./views")
 app.set("view engine", "ejs")
@@ -99,13 +60,6 @@ app.post("/titolo", (req, res) => {
     const urlIbs = "https://www.ibs.it/search/?ts=xs&product_type=ITBOOK&gn_Title=" + title.replace(/\s/g, "%20") + "&Products_per_page=25&Default=asc"
     const urlFeltrinelli = "https://www.lafeltrinelli.it/fcom/it/home/pages/catalogo/searchresults.html?prkw=" + title.replace(/\s/g, '+') + "&sort=1"
     const urlLibraccio = "https://www.libraccio.it/src/?FT=" + title.replace(/\s/g, '+')
-
-    
-    // Promise.all([
-    // scraper(urlIbs, Ibs, title, "Ibs"), 
-    // scraper(urlLibraccio, Libraccio, title, "Libraccio"),
-    // scraper(urlAmazon, Amazon, title, "Amazon")
-    // ])
 
     Promise.all(
     [

@@ -6,10 +6,8 @@ void( () =>
         const loading = document.querySelector("div.loading")
         loading.style.display = "block"
         
-        // const url = "http://localhost:5000/"
         const url = "https://consigli-di-lettura.herokuapp.com/"
-         data = { "data" : e.currentTarget.nextElementSibling.innerHTML}
-        console.log(e.currentTarget.nextElementSibling.innerHTML)
+        const data = { "data" : e.currentTarget.nextElementSibling.innerHTML}
         fetch(url + "titolo", {
             method : "POST",
             headers: {
@@ -21,7 +19,6 @@ void( () =>
                 document.location.href = url + "prezzi"
             })
             .catch( err => {
-                throw err
                 div[0].insertAdjacentHTML('beforebegin', 
                 `<div id="divError">
                     Impossibile raggiungere il server, riprovare più tardi
@@ -33,6 +30,7 @@ void( () =>
                     const zoomImg = document.querySelectorAll("#divError")[0]
                     zoomImg.remove()
                 })
+                throw err
             })
             
     }
