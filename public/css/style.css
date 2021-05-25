@@ -4,23 +4,25 @@ body{
 }
 
 .row{
-    margin-bottom: 40px;
+    width: 100%;
+    overflow: auto;
+    margin-bottom: 8vh;
 }
 
 div.column {
     background-color: #203647;
     position: relative;
-    width: 20%;
-    padding: 20px;
+    width: 15vw;
+    padding: 1.5%;
     border: 2px solid #007CC7;
   }
 .right{
     float: right;
-    margin-right: 100px;
+    margin-right: 10vw;
 }
 .left{
     float: left;
-    margin-left: 100px;
+    margin-left: 10vw;
 }
 .center{
     margin-right: auto;
@@ -28,7 +30,8 @@ div.column {
 }
 img.column{
     width: auto;
-    max-height: 209px;
+    max-width: 15vw;
+    max-height: 30vh;
     display: block;
     margin-right: auto;
     margin-left: auto;
@@ -40,28 +43,30 @@ img.column:hover{
 
 .container{
     position: relative;
-    max-height: 300px;
-    margin-right: 100px;
-    margin-left: 100px;
-    margin-bottom: 40px;
+    height: 40vh;
+    margin-right: 10vw;
+    margin-left: 10vw;
+    margin-bottom: 5vh;
 }
 .container img{
     width: 100%;
-    max-height: 300px;
+    height: 40vh;
 }
 .text-block {
+    height: 25vh;
     z-index: 1;
-    position: relative;
-    bottom: 250px;
-    margin-right: 25%;
-    margin-left: 50%;
-    width: 400px;
-    height: 150px;
+    position: absolute;
+    margin-left: 42vw;
     text-align: center;
-    color: white;
-    padding: 20px 0;
-    font-family: Merriweather, serif;
-    font-size: 60px;
+    color: whitesmoke;
+    font-family: Merriweather;
+    font-size: 10vh;
+    margin-top: 7.5vh;
+    margin-bottom: 7.5vh;
+}
+h1 {
+    top: auto;
+    bottom: auto;
 }
 
 div.button{
@@ -182,13 +187,13 @@ div.button{
 
 h3{
     font-family: Merriweather, serif;
-    font-size: large;
+    font-size: 1.25em;
     color: white;
-    margin-top: 20px;
+    margin-top: 3vh;
 }
 p{
     font-family: "Open Sans", sans-serif;
-    font-size: medium;
+    font-size: 1em;
     color: white;
 }
 

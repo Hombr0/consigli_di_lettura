@@ -32,19 +32,19 @@ const headers = {
 
 const Ibs = (title, url, html) => {
     const $ = cheerio.load(html)
-    const price = parseFloat( $("span.new-price:first", html).text().replace(',', '.') + $("span.decimals:first", html).text())
+    const price = parseFloat( $("span.new-price:first").text().replace(',', '.') + $("span.decimals:first").text())
     return [title, url, "Ibs", price]
 }
 
 const Feltrinelli = (title, url, html) => {
     const $ = cheerio.load(html)
-    const price = parseFloat( $("span.gtmActualPrice:eq(24)", html).text().replace(',', '.') )
+    const price = parseFloat( $("span.gtmActualPrice:eq(24)").text().replace(',', '.') )
     return [title, url, "Feltrinelli", price]
 }
 
 const Libraccio = (title, url, html) => {
     const $ = cheerio.load(html)
-    const price = parseFloat( $("span.sellpr:first", html).text().slice(2, 6).replace(',', '.') )
+    const price = parseFloat( $("span.sellpr:first").text().slice(2, 6).replace(',', '.') )
     return [title, url, "Libraccio", price]
 }
 
@@ -60,7 +60,6 @@ app.post("/titolo", (req, res) => {
     const urlIbs = "https://www.ibs.it/search/?ts=xs&product_type=ITBOOK&gn_Title=" + title.replace(/\s/g, "%20") + "&Products_per_page=25&Default=asc"
     const urlFeltrinelli = "https://www.lafeltrinelli.it/fcom/it/home/pages/catalogo/searchresults.html?prkw=" + title.replace(/\s/g, '+') + "&sort=1"
     const urlLibraccio = "https://www.libraccio.it/src/?FT=" + title.replace(/\s/g, '+')
-
     Promise.all(
     [
         axios.get(urlIbs, headers),
@@ -73,7 +72,6 @@ app.post("/titolo", (req, res) => {
             Feltrinelli(title, urlFeltrinelli, data[1].data),
             Libraccio(title, urlLibraccio, data[2].data)
         ]
-        console.log(dataPrices)
         const prices = dataPrices.sort( (a, b) => b[3] - a[3])
         
         const jsonPrices = JSON.stringify({
@@ -99,13 +97,13 @@ app.get("/prezzi", (req, res) => {
         {
             link1: prezzi[0][1],
             sito1: prezzi[0][2],
-            prezzo1: prezzi[0][3].toString().replace('.', ','),
+            prezzo1: prezzi[0][3].toFixed(2).replace('.', ','),
             link2: prezzi[1][1],
             sito2: prezzi[1][2],
-            prezzo2: prezzi[1][3].toString().replace('.', ','),
+            prezzo2: prezzi[1][3].toFixed(2).replace('.', ','),
             link3: prezzi[2][1],
             sito3: prezzi[2][2],
-            prezzo3: prezzi[2][3].toString().replace('.', ','),
+            prezzo3: prezzi[2][3].toFixed(2).replace('.', ','),
             title: prezzi[0][0],
             img: "/immagini/" + prezzi[0][0].replace(/\s/g, '').toLowerCase() + ".jpg"
         })
